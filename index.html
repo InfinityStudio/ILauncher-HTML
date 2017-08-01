@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>ILauncher</title>
@@ -62,47 +62,15 @@
         </nav>
         <div class="content">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="row" id="versions">
+                    <div class="col-lg-4 col-md-6 col-sm-6" v-for="version in versions">
                         <div class="card card-stats">
-                            <div class="card-header" data-background-color="blue">
-                                <i class="material-icons">attachment</i>
+                            <div class="card-header" v-bind:data-background-color="version.color">
+                                <i class="material-icons">{{ version.icon }}</i>
                             </div>
                             <div class="card-content">
-                                <p class="category">1.7.10</p>
-                                <h3 class="title">Minecraft 1.7.10</h3>
-                            </div>
-                            <div class="card-footer">
-                                <div class="stats">
-                                    <a href="#pablo">启动</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="card card-stats">
-                            <div class="card-header" data-background-color="green">
-                                <i class="material-icons">account_box</i>
-                            </div>
-                            <div class="card-content">
-                                <p class="category">1.8.9</p>
-                                <h3 class="title">Minecraft 1.8.9</h3>
-                            </div>
-                            <div class="card-footer">
-                                <div class="stats">
-                                    <a href="#pablo">启动</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="card card-stats">
-                            <div class="card-header" data-background-color="grey">
-                                <i class="material-icons">bookmark_border</i>
-                            </div>
-                            <div class="card-content">
-                                <p class="category">1.12</p>
-                                <h3 class="title">Minecraft 1.12</h3>
+                                <p class="category">{{ version.mcVersion }}</p>
+                                <h3 class="title">{{ version.name }}</h3>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
@@ -130,5 +98,7 @@
 <!-- Material Dashboard javascript methods -->
 <script src="js/material-dashboard.js"></script>
 
+<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+<script src="js/ilauncher.js"></script>
 </body>
 </html>

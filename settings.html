@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>ILauncher</title>
@@ -70,20 +70,36 @@
                                 <p class="category">进行自定义设置</p>
                             </div>
                             <div class="card-content">
-                                <form>
-                                    <h5>JVM设置</h5>
-                                    <div class="form-group label-floating is-empty">
-                                        <label class="control-label">内存大小(MB)</label>
-                                        <input type="number" class="form-control" name="memorySize">
-                                    </div>
-                                    <div class="form-group label-floating is-empty">
-                                        <label class="control-label">PermGen大小(MB)</label>
-                                        <input type="number" class="form-control" name="memorySize"
-                                               onclick="showPermGenWarn()">
-                                    </div>
-                                    <div class="form-group label-floating is-empty">
-                                        <label class="control-label">游戏目录</label>
-                                        <input type="text" class="form-control" name="memorySize">
+                                <form id="settings">
+                                    <div v-for="category in categories">
+                                        <h5>{{ category.name }}</h5>
+                                        <div class="form-group" v-for="setting in category.settings">
+                                            <div class="label-floating is-empty" v-if="setting.type !== 'radio' && setting.type !== 'check'">
+                                                <label class="control-label">{{ setting.label }}</label>
+                                                <input v-bind:type="setting.type" class="form-control" v-bind:name="setting.name">
+                                            </div>
+                                            <div v-else-if="setting.type === 'radio'">
+                                                <label>{{ setting.label }}</label>
+                                                <div class="radio" v-for="option in setting.options">
+                                                    <label>
+                                                        <input type="radio" v-bind:name="setting.name" v-bind:value="option.value">
+                                                        <span class="circle"></span>
+                                                        <span class="check"></span>
+                                                        {{ option.label }}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div v-else-if="setting.type === 'check'">
+                                                <label>{{ setting.label }}</label>
+                                                <div class="checkbox" v-for="option in setting.options">
+                                                    <label>
+                                                        <input type="checkbox" v-bind:name="setting.name" v-bind:value="option.value">
+                                                        {{ option.label }}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr />
                                     </div>
                                     <button type="submit" class="btn btn-primary pull-right">更新设置</button>
                                     <div class="clearfix"></div>
@@ -122,22 +138,13 @@
 
 <!-- Material Dashboard javascript methods -->
 <script src="js/material-dashboard.js"></script>
-<script type="text/javascript">
-    function showPermGenWarn() {
-//        if (isJava8()) TODO Check if Java 8
-        $.notify({
-            icon: "notifications",
-            message: "你正在使用<b>Java 8</b>, PermGen大小将会被<b>自动设置</b>, 请不要使用这条设置"
-
-        }, {
-            type: 'warning',
-            timer: 500,
-            placement: {
-                from: 'top',
-                align: 'right'
-            }
-        });
-    }
+<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+<script src="js/ilauncher.js"></script>
+<script>
+    $(document).ready(function () {
+        $.material.radio();
+        $.material.checkbox();
+    });
 </script>
 </body>
 </html>
