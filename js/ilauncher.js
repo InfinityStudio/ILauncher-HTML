@@ -1,3 +1,15 @@
+$(".slide-button").sideNav();
+$(".modal").modal();
+
+var user = new Vue({
+    el: "#user",
+    data: {
+        name: "CI010",
+        email: "ci010@infstudio.net",
+        avatar: "ci010.png"
+    }
+});
+
 var versions = new Vue({
     el: "#versions",
     data: {
